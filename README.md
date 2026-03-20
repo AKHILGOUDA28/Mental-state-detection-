@@ -1,60 +1,74 @@
-# 🧠 EEG Mental State Classification using CNN, LSTM & Machine Learning
+# 🧠 EEG Mental State Classification using Machine Learning
 
 ## 📌 Project Overview
 
-This project is about predicting human mental state using EEG brainwave signals. EEG data is very complex and noisy, so understanding patterns is not easy. In this work, I tried different approaches starting from deep learning (CNN + LSTM) and then moving to machine learning models like XGBoost and MLP.
+This project is about predicting human mental state using EEG brainwave signals. EEG data is very complex and noisy, so extracting useful information is challenging.
 
-Main goal is to build a system which can correctly classify mental states and also understand which features are important.
+Initially, I started this project with deep learning models like CNN and LSTM because EEG signals look like time-series data. But later I realized that this dataset is not suitable for deep learning due to its structure and size. So I changed my approach to machine learning models, which gave better performance.
 
 ---
 
-## 🚀 Idea and Innovation
+## 🚀 Idea and Approach (Important Part)
 
-First I started with **CNN + LSTM model** because EEG signals are like time-series data.
+At the beginning, I used **CNN + LSTM** model.
 
-* CNN is used to capture **spatial patterns** from signals
-* LSTM is used to capture **temporal dependencies (sequence behavior)**
+* CNN helps to capture patterns
+* LSTM helps to understand sequence behavior
 
-So combining both helps to understand:
+But during implementation, I faced some problems:
 
-> "what pattern is present" + "how pattern changes over time"
+* Dataset is not very large
+* Data is already in **tabular format (engineered features)**
+* No clear temporal sequence like raw signals
+* Deep learning models were taking more time and not giving better accuracy
 
-But after experimenting, I realized that deep learning is not always best for this dataset. So I moved to machine learning models and did feature engineering and selection.
+So I understood that:
 
-👉 Main innovation in this project:
+👉 *Deep learning is not always best for every dataset*
 
-* Compared **Deep Learning vs Machine Learning**
-* Used **Permutation Feature Importance**
-* Reduced features from hundreds → top 50 features
-* Applied **Statistical Testing (t-test, Cohen’s d)** to prove results
+---
+
+## 🔄 Why I Changed to Machine Learning
+
+After observing above issues, I switched to **machine learning models**.
+
+Reasons:
+
+* Data is structured (not raw signal)
+* Features already extracted (mean, variance, kurtosis, etc.)
+* Tree-based models work better on this type of data
+* Faster training and better performance
+
+👉 Then I used:
+
+* MLP (baseline model)
+* XGBoost (main model)
 
 ---
 
 ## 🧠 Models Used
 
-### 🔹 1. CNN + LSTM (Deep Learning Approach)
+### 🔹 1. CNN + LSTM (Initial Attempt)
 
-* Handles time-series EEG data
-* Captures both spatial and temporal patterns
-* Good conceptually but requires more data and tuning
-
----
-
-### 🔹 2. MLP (Neural Network)
-
-* Simple feedforward network
-* Used as baseline deep learning model
-* Faster than CNN-LSTM but slightly lower performance
+* Used for sequence learning
+* But not suitable for this dataset
+* Lower performance and high complexity
 
 ---
 
-### 🔹 3. XGBoost (Best Model 🚀)
+### 🔹 2. MLP (Baseline Model)
 
-* Tree-based ensemble model
-* Handles tabular data very efficiently
-* No need of heavy preprocessing
+* Simple neural network
+* Used to compare performance
+* Accuracy around 96%
 
-👉 This model gave best results in this project
+---
+
+### 🔹 3. XGBoost (Final Model 🚀)
+
+* Best performing model
+* Works well with tabular data
+* No need for heavy preprocessing
 
 ---
 
@@ -68,87 +82,58 @@ But after experimenting, I realized that deep learning is not always best for th
 
 ---
 
-## 🔍 Key Findings
+## 🔍 Feature Selection (Important Contribution)
 
-* Feature selection improved performance
-* Many EEG features are redundant
-* Only small subset of features is enough
-* XGBoost outperformed neural networks
+Using permutation importance:
+
+* Many features had zero importance
+* Selected top 50 features
+* Reduced noise and improved performance
 
 ---
 
 ## 📈 Statistical Validation
 
-To make results strong, I used:
+To make results more reliable:
 
-* **Paired t-test**
-* **Cohen’s d (Effect Size)**
+* Used paired t-test
+* Calculated Cohen’s d
 
 Results:
 
 * p-value ≈ 0.053 (very close to significant)
-* Cohen’s d = 1.36 → very large effect
+* Cohen’s d = 1.36 (large effect size)
 
-👉 This means XGBoost is practically much better than MLP
-
----
-
-## 📊 Evaluation Metrics
-
-* Accuracy: ~97%
-* F1 Score: 0.96
-* Balanced performance across all classes
-* Confusion matrix shows very low misclassification
-
----
-
-## 🛠️ Tech Stack
-
-* Python
-* Pandas, NumPy
-* Scikit-learn
-* XGBoost
-* TensorFlow / Keras
-* Matplotlib, Seaborn
-
----
-
-## 📁 Dataset
-
-EEG Brainwave Dataset (Mental State Classification)
-Available on Kaggle.
+👉 Shows strong practical improvement of XGBoost
 
 ---
 
 ## 💡 Conclusion
 
-This project shows that:
+This project shows an important learning:
 
-* Deep learning is powerful but not always best choice
-* Feature engineering and model selection is very important
-* Simpler models like XGBoost can outperform complex models
+> "Choosing the right model based on data is more important than using complex models."
 
-Also reducing features helps to:
-
-* Improve speed
-* Reduce complexity
-* Maintain accuracy
+* Deep learning was not suitable here
+* Machine learning performed better
+* Feature selection improved results
 
 ---
 
 ## 🔮 Future Work
 
-* Improve CNN + LSTM model with better tuning
-* Real-time EEG prediction system
-* Build web interface for live prediction
-* Try more advanced models like Transformers
+* Use raw EEG signals instead of processed features
+* Improve deep learning model with larger dataset
+* Build real-time prediction system
+* Create web interface for predictions
 
 ---
 
 ## 🙋 About Me
 
-I am interested in Data Science and Machine Learning. I like working with real-world data and finding useful insights. This project helped me understand how to compare models properly and validate results using statistics.
+I am interested in Data Science and Machine Learning. This project helped me understand how to select models based on data and how to validate results properly using statistics.
 
 ---
+
 
 ⭐ If you like this project, feel free to star the repo!
